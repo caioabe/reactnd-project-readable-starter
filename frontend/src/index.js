@@ -14,3 +14,4 @@ const component = (
 )
 
 ReactDOM.render(component, document.getElementById('root'))
+registerServiceWorker();
