@@ -1,13 +1,16 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-
-import './App.css';
+import { Grid } from 'react-bootstrap';
+import { Header } from './components';
+import { Root, Category } from './views';
 
 const App = () => (
-  <div className="app">
-    <Route exact path='/' render={() => (
-      'empty'
-    )} />
+  <div>
+    <Header />
+    <Grid>
+      <Route exact path="/" component={Root}/>
+      <Route path="/category" component={Category}/>
+    </Grid>
   </div>
 );
 
