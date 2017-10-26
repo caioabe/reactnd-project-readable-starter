@@ -1,43 +1,38 @@
 import React, { Component } from 'react';
-import ApiService from '../../services/api-service';
+import { connect } from 'react-redux';
+
+import { getPosts } from '../../modules/posts';
+import { getCategories } from '../../modules/categories';
+import { PostList, CategoryMenu } from '../../components';
 
 class Root extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      posts: [],
-    };
-  }
-
   componentWillMount() {
-    ApiService
-      .getPosts()
-      .then(posts => this.setState({ posts }));
+    this.props.getPosts();
+    this.props.getCategories();
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, categories } = this.props;
 
     return (
       <div>
         <h2>All Posts</h2>
-        {
-          posts.map(post => (
-            <div key={post.id}>
-              <p>{post.author}</p>
-              <p>{post.body}</p>
-              <p>{post.category}</p>
-              <p>{post.id}</p>
-              <p>{post.timestamp}</p>
-              <p>{post.title}</p>
-              <p>{post.voteScore}</p>
-            </div>
-          ))
-        }
+        <CategoryMenu categories={categories} />
+        <PostList posts={posts} />
       </div>
     );
   }
 }
 
-export { Root };
+const mapDispatchToProps = { getPosts, getCategories };
+const mapStateToProps = ({ posts, categories }) => (
+  {
+    posts,
+    categories,
+  }
+);
+
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Root);
+
+export { connectedComponent as Root };
