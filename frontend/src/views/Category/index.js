@@ -1,40 +1,25 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
-import ApiService from '../../services/api-service';
+import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
+
+import { PostsByCategory } from '../';
+import { CategoryMenu } from '../../components';
+import { getCategories } from '../../modules/categories';
 
 class Category extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      categories: [],
-      isLoading: true,
-    };
-  }
   componentWillMount() {
-    ApiService
-      .getCategories()
-      .then(categories => this.setState({ categories }));
+    this.props.getCategories();
   }
 
   render() {
     const { url } = this.props.match;
+    const { categories } = this.props;
 
     return (
       <div>
         <h2>Category</h2>
-        <ul>
-          {
-            this.state.categories.map(category => (
-              <li key={`${category.name}`}>
-                <Link to={`${url}/${category.path}`}>
-                  {category.name}
-                </Link>
-              </li>
-            ))
-          }
-        </ul>
-        <Route path={`${url}/:category_id`} component={Topic}/>
+        <CategoryMenu categories={categories} />
+        <Route path={`${url}/:categoryId/posts`} component={PostsByCategory}/>
         <Route exact path={url} render={() => (
           <h3>Please select a topic.</h3>
         )}/>
@@ -43,10 +28,14 @@ class Category extends Component {
   }
 }
 
-const Topic = ({ match }) => (
-  <div>
-    <h3>{match.params.category_id}</h3>
-  </div>
+const mapDispatchToProps = { getCategories };
+const mapStateToProps = ({ categories }) => (
+  {
+    categories,
+  }
 );
 
-export { Category };
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Category);
+
+export { connectedComponent as Category };
