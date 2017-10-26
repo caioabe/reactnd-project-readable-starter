@@ -1,19 +1,10 @@
 import { combineReducers } from 'redux';
-
-const INITIAL_STATE = [];
-
-function posts(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case 'PIMBAPUMBA':
-      return [
-        ...state,
-        ...action.payload,
-      ];
-    default:
-      return state;
-  }
-}
+import postsReducer from '../modules/posts';
+import categoriesReducer from '../modules/categories';
+import postsByCategoryReducer from '../modules/posts-by-category';
 
 export default combineReducers({
-  posts,
+  posts: postsReducer,
+  categories: categoriesReducer,
+  postsByCategory: postsByCategoryReducer,
 });
