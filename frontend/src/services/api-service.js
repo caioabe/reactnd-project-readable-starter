@@ -6,7 +6,7 @@ function parseResponse(request) {
   return request.json();
 }
 
-async function get(resource) {
+async function getAll(resource) {
   const uri = `${baseUrl}/${resource}`;
   const request = await fetch(uri, { ...header });
 
@@ -14,22 +14,30 @@ async function get(resource) {
 }
 
 async function getPosts() {
-  const request = await get('posts');
+  const request = await getAll('posts');
   const parsedResponse = await parseResponse(request);
 
   return parsedResponse;
 }
 
 async function getCategories() {
-  const request = await get('categories');
+  const request = await getAll('categories');
   const parsedResponse = await parseResponse(request);
 
   return parsedResponse.categories;
 }
 
+async function findPostsByCategory(category) {
+  const request = await fetch(`${baseUrl}/${category}/posts`, { ...header });
+  const parsedResponse = await parseResponse(request);
+
+  return parsedResponse;
+}
+
 const ApiService = {
   getPosts,
   getCategories,
+  findPostsByCategory,
 };
 
 export default ApiService;
