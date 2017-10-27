@@ -1,132 +1,84 @@
 import uuidv1 from 'uuid/v1';
+import Api from './api-methods';
 
-const baseUrl = 'http://localhost:3001';
-const header = { headers: { Authorization: 'caioabe' } };
-// const postMethod = { method: "POST" };
+const _timeStamp = () => new Date().getTime();
 
-function parseResponse(request) {
-  return request.json();
-}
-
-async function getAll(resource) {
-  const uri = `${baseUrl}/${resource}`;
-  const request = await fetch(uri, { ...header });
-
-  return request;
-}
-
-async function getCategories() {
-  const request = await getAll('categories');
-  const parsedResponse = await parseResponse(request);
-
-  return parsedResponse.categories;
-}
-
-async function findPostsByCategory(category) {
-  const request = await fetch(`${baseUrl}/${category}/posts`, { ...header });
-  const parsedResponse = await parseResponse(request);
-
-  return parsedResponse;
-}
-
-async function getPosts() {
-  const request = await getAll('posts');
-  const parsedResponse = await parseResponse(request);
-
-  return parsedResponse;
-}
-
-async function findPost(id) {
-  const request = await getAll(`posts/${id}`);
-  const parsedResponse = await parseResponse(request);
-
-  return parsedResponse;
-}
-
-async function voteOnPost(id, isUp = true) {
+const _vote = async (resource, id, isUp) => {
   const option = isUp ? 'upVote' : 'downVote';
+  await Api.post(`${resource}/${id}`, { option });
+};
 
-  await fetch(`${baseUrl}/posts/${id}`, {
-    ...header,
-    method: 'POST',
-    body: { option },
-  });
-}
+const _create = async (resource, entity) => {
+  const body = { ...entity, id: uuidv1() };
+  await Api.post(`${resource}`, body);
+};
 
-async function updatePost(post) {
-  await fetch(`${baseUrl}/posts/${post.id}`, {
-    ...header,
-    method: 'PUT',
-    body: {
-      title: post.title,
-      body: post.body,
-    },
-  });
-}
+const _update = async (resource, id, body) => {
+  await Api.put(`${resource}/${id}`, body);
+};
 
-async function createPost(post) {
-  post.id = uuidv1();
+const getCategories = async () => {
+  const categories = await Api.get('categories');
 
-  await fetch(`${baseUrl}/posts`, {
-    ...header,
-    method: 'POST',
-    body: { ...post },
-  });
-}
+  return categories.categories;
+};
 
-async function deletePost(id) {
-  await fetch(`${baseUrl}/posts/${id}`, { ...header, method: 'DELETE' });
-}
+const getPosts = async () => {
+  const posts = await Api.get('posts');
+  return posts;
+};
 
-async function findCommentsByPost(id) {
-  const request = await getAll(`posts/${id}/comments`);
-  const parsedResponse = await parseResponse(request);
+const findPost = async (id) => {
+  const post = await Api.get(`posts/${id}`);
+  return post;
+};
 
-  return parsedResponse;
-}
+const findPostsByCategory = async (category) => {
+  const post = await Api.get(`${category}/posts`);
+  return post;
+};
 
-async function findComment(id) {
-  const request = await getAll(`comments/${id}`);
-  const parsedResponse = await parseResponse(request);
+const deletePost = async (id) => {
+  await Api.delete(`posts/${id}`);
+};
 
-  return parsedResponse;
-}
+const voteOnPost = async (id, isUp = true) => {
+  await _vote('posts', id, isUp);
+};
 
-async function createComment(postId, comment) {
-  comment.id = uuidv1();
-  comment.parentId = postId;
+const createPost = async (post) => {
+  _create('posts', post);
+};
 
-  await fetch(`${baseUrl}/posts`, {
-    ...header,
-    method: 'POST',
-    body: { ...comment },
-  });
-}
+const findComment = async (id) => {
+  const comment = await Api.get(`comments/${id}`);
+  return comment;
+};
 
-async function voteOnComment(id, isUp = true) {
-  const option = isUp ? 'upVote' : 'downVote';
+const findCommentsByPost = async (id) => {
+  const comment = await Api.get(`posts/${id}/comments`);
+  return comment;
+};
 
-  await fetch(`${baseUrl}/comments/${id}`, {
-    ...header,
-    method: 'POST',
-    body: { option },
-  });
-}
+const deleteComment = async (id) => {
+  await Api.delete(`comments/${id}`);
+};
 
-async function updateComment(comment) {
-  await fetch(`${baseUrl}/comments/${comment.id}`, {
-    ...header,
-    method: 'PUT',
-    body: {
-      timestamp: new Date().getTime(),
-      body: comment.body,
-    },
-  });
-}
+const voteOnComment = async (id, isUp = true) => {
+  await _vote('comments', id, isUp);
+};
 
-async function deleteComment(id) {
-  await fetch(`${baseUrl}/comments/${id}`, { ...header, method: 'DELETE' });
-}
+const createComment = async (comment) => {
+  _create('comments', comment);
+};
+
+const updatePost = async (post) => {
+  await _update('posts', post.id, { title: post.title, body: post.body });
+};
+
+const updateComment = async (comment) => {
+  await _update('comments', comment.id, { timestamp: _timeStamp(), body: comment.body });
+};
 
 const ApiService = {
   getCategories,
