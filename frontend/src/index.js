@@ -9,9 +9,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import App from './App';
-import rootReducer from './config/root-reducer';
+import rootReducer from './reducers/root-reducer';
 import registerServiceWorker from './registerServiceWorker';
-import './index.css';
+import './App.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
