@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Grid } from 'react-bootstrap';
 
 import { PostList } from '../../components';
 import { findPostsByCategory, clearPostsByCategory } from '../../modules/posts-by-category';
@@ -26,9 +27,9 @@ class PostsByCategory extends Component {
     const { postsByCategory } = this.props;
 
     return (
-      <div>
+      <Grid>
         <PostList posts={postsByCategory} />
-      </div>
+      </Grid>
     );
   }
 }
