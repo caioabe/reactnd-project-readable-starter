@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
+import { NavItem } from 'react-bootstrap';
 
 const CategoryLink = ({ category }) => (
-  <li>
-    <Link to={`/category/${category.path}/posts`} children={category.name}/>
-  </li>
+  <LinkContainer to={`/category/${category.path}/posts`}>
+    <NavItem>{category.name}</NavItem>
+  </LinkContainer>
 );
 
 export { CategoryLink };
