@@ -1,6 +1,12 @@
 
 const baseUrl = 'http://localhost:3001';
-const header = { headers: { Authorization: 'caioabecaioabe' } };
+const headers = {
+  headers: {
+    Accept: 'application/json',
+    Authorization: 'teste1',
+    'Content-Type': 'application/json',
+  },
+};
 
 function _parseResponse(request) {
   return request.json();
@@ -9,12 +15,12 @@ function _parseResponse(request) {
 async function _apiRequest(method, resource, body) {
   const uri = `${baseUrl}/${resource}`;
   const params = {
-    ...header,
+    ...headers,
     method,
   };
 
   if (method === 'POST' || method === 'PUT') {
-    params.body = body;
+    params.body = JSON.stringify(body);
   }
 
   const request = await fetch(uri, params);

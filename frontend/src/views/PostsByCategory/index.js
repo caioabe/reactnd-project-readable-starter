@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 import { PostList } from '../../components';
 import { findPostsByCategory, clearPostsByCategory } from '../../modules/posts-by-category';
@@ -41,7 +42,14 @@ const mapStateToProps = ({ postsByCategory }) => (
   }
 );
 
-
 const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(PostsByCategory);
 
 export { connectedComponent as PostsByCategory };
+
+PostsByCategory.propTypes = {
+  postsByCategory: PropTypes.array,
+};
+
+PostsByCategory.defaultProps = {
+  postsByCategory: [],
+};

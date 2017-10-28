@@ -1,5 +1,6 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 import { CategoryLink } from '../';
 
@@ -14,3 +15,11 @@ const CategoryMenu = ({ categories }) => (
 );
 
 export { CategoryMenu };
+
+CategoryMenu.propTypes = {
+  categories: PropTypes.array,
+};
+
+CategoryMenu.defaultProps = {
+  categories: [],
+};

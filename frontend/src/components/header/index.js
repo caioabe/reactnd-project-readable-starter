@@ -1,12 +1,6 @@
 import React from 'react';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
-import {
-  Navbar,
-  Nav,
-  NavItem,
-} from 'react-bootstrap';
-
-import './styles.css';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 const Header = () => (
   <Navbar className="header">

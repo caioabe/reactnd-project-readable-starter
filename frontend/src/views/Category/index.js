@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { PostsByCategory } from '../';
 import { CategoryMenu } from '../../components';
@@ -35,7 +36,14 @@ const mapStateToProps = ({ categories }) => (
   }
 );
 
-
 const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Category);
 
 export { connectedComponent as Category };
+
+Category.propTypes = {
+  categories: PropTypes.array,
+};
+
+Category.defaultProps = {
+  categories: [],
+};
