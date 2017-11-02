@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Col, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
+
 import { voteOnPost, deletePost } from '../../modules/posts';
 
 class PostItem extends Component {
@@ -47,6 +49,11 @@ class PostItem extends Component {
           <Button className="post-item__edit" onClick={() => {}}>
             edit
           </Button>
+          <LinkContainer to={`/post/${post.id}`}>
+            <Button className="post-item__edit">
+              view
+            </Button>
+          </LinkContainer>
         </div>
       </Col>
     );
