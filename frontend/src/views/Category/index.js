@@ -5,18 +5,8 @@ import PropTypes from 'prop-types';
 
 import { PostsByCategory } from '../';
 import { CategoryMenu } from '../../components';
-import { getCategories } from '../../modules/categories';
-import { getPosts } from '../../modules/posts';
 
 class Category extends Component {
-  componentWillMount() {
-    if (this.props.posts.length === 0) {
-      this.props.getPosts();
-    }
-
-    this.props.getCategories();
-  }
-
   render() {
     const { categories } = this.props;
 
@@ -35,7 +25,6 @@ class Category extends Component {
   }
 }
 
-const mapDispatchToProps = { getPosts, getCategories };
 const mapStateToProps = ({ posts, categories }) => (
   {
     posts,
@@ -43,7 +32,7 @@ const mapStateToProps = ({ posts, categories }) => (
   }
 );
 
-const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Category);
+const connectedComponent = connect(mapStateToProps)(Category);
 
 export { connectedComponent as Category };
 
