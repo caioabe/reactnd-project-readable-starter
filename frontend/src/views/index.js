@@ -1,3 +1,3 @@
 export * from './Root';
 export * from './Category';
-export * from './PostsByCategory';
+export * from './Category/PostsByCategory';

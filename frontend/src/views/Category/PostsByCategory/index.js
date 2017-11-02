@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Grid } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import { PostList } from '../../components';
-import { findPostsByCategory, clearPostsByCategory } from '../../modules/posts-by-category';
+import { PostList } from '../../../components';
+import { findPostsByCategory, clearPostsByCategory } from '../../../modules/posts-by-category';
 
 class PostsByCategory extends Component {
   componentDidMount() {
