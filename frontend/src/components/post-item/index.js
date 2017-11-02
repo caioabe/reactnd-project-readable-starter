@@ -27,7 +27,7 @@ class PostItem extends Component {
 
   render() {
     const { posts, postId } = this.props;
-    const post = posts.find(p => p.id === postId);
+    const post = posts.find(p => p.id === postId) || {};
 
     return (
       <Col md={4}>
@@ -66,10 +66,10 @@ export { connectedComponent as PostItem };
 
 PostItem.propTypes = {
   posts: PropTypes.array,
-  post: PropTypes.string,
+  postId: PropTypes.string,
 };
 
 PostItem.defaultProps = {
   posts: [],
-  post: '',
+  postId: '',
 };
