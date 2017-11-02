@@ -1,20 +1,20 @@
 import React from 'react';
-import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 const Header = () => (
   <Navbar className="header">
     <Navbar.Header>
       <Navbar.Brand>
-        <IndexLinkContainer to="/">
+        <LinkContainer to="/">
           <a className="header__title">Readable</a>
-        </IndexLinkContainer>
+        </LinkContainer>
       </Navbar.Brand>
     </Navbar.Header>
     <Nav pullRight>
-      <IndexLinkContainer to="/">
+      <LinkContainer exact to="/">
         <NavItem>All Posts</NavItem>
-      </IndexLinkContainer>
+      </LinkContainer>
       <LinkContainer to="/category">
         <NavItem>Categories</NavItem>
       </LinkContainer>
