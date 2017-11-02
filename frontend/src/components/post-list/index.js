@@ -1,21 +1,25 @@
 import React from 'react';
-import { Row } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { PostItem } from '../';
 
 function renderPostItem(post) {
-  return <PostItem postId={post.id} key={`${post.id}-menu`} />;
+  return (
+    <Col md={4}>
+      <PostItem postId={post.id} key={`${post.id}-menu`} />
+    </Col>
+  );
 }
 
 const PostList = ({ posts, comments }) => (
   <Row>
-    { posts.map((post) => {
-      post.comments = comments[post.id];
+  { posts.map((post) => {
+    post.comments = comments[post.id];
 
-      return renderPostItem(post);
-    }) }
-  </Row>
+    return renderPostItem(post);
+  }) }
+</Row>
 );
 
 export { PostList };

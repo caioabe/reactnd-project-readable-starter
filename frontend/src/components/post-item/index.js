@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Button } from 'react-bootstrap';
+import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -32,30 +32,32 @@ class PostItem extends Component {
     const post = posts.find(p => p.id === postId) || {};
 
     return (
-      <Col md={4}>
-        <div className="post-item">
-          <h4>{post.title}</h4>
-          <p>Autor: {post.author}</p>
-          <p>Vote Score: {post.voteScore}</p>
-          <Button className="post-item__upVote" onClick={this.upVoteOnPost}>
-            +
-          </Button>
-          <Button className="post-item__downVote" onClick={this.downVoteOnPost}>
-            -
-          </Button>
-          <Button className="post-item__delete" onClick={this.deletePost}>
-            delete
-          </Button>
-          <Button className="post-item__edit" onClick={() => {}}>
-            edit
-          </Button>
-          <LinkContainer to={`/post/${post.id}`}>
-            <Button className="post-item__edit">
-              view
+      <div className="post-item">
+        <ButtonToolbar>
+          <ButtonGroup bsSize="small">
+            <Button className="post-item__upVote" onClick={this.upVoteOnPost}>
+              +
             </Button>
-          </LinkContainer>
-        </div>
-      </Col>
+            <Button className="post-item__downVote" onClick={this.downVoteOnPost}>
+              -
+            </Button>
+            <Button className="post-item__delete" onClick={this.deletePost}>
+              delete
+            </Button>
+            <Button className="post-item__edit" onClick={() => {}}>
+              edit
+            </Button>
+            <LinkContainer to={`/post/${post.id}`}>
+              <Button className="post-item__edit">
+                view
+              </Button>
+            </LinkContainer>
+          </ButtonGroup>
+        </ButtonToolbar>
+        <h4>{post.title}</h4>
+        <p>Autor: {post.author}</p>
+        <p>Vote Score: {post.voteScore}</p>
+      </div>
     );
   }
 }
