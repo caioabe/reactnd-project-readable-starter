@@ -4,28 +4,12 @@ import { Grid } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { PostList } from '../../../components';
-import { findPostsByCategory, clearPostsByCategory } from '../../../modules/posts-by-category';
 
 class PostsByCategory extends Component {
-  componentDidMount() {
-    this.props.findPostsByCategory(this.props.match.params.categoryId);
-  }
-
-  componentWillUnmount() {
-    this.props.clearPostsByCategory();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const id = this.props.match.params.categoryId;
-    const nextId = nextProps.match.params.categoryId;
-
-    if (id !== nextId) {
-      this.props.findPostsByCategory(nextId);
-    }
-  }
-
   render() {
-    const { postsByCategory } = this.props;
+    const { posts } = this.props;
+    const { categoryId } = this.props.match.params;
+    const postsByCategory = posts.filter(p => p.category === categoryId);
 
     return (
       <Grid>
@@ -35,21 +19,20 @@ class PostsByCategory extends Component {
   }
 }
 
-const mapDispatchToProps = { findPostsByCategory, clearPostsByCategory };
-const mapStateToProps = ({ postsByCategory }) => (
+const mapStateToProps = ({ posts }) => (
   {
-    postsByCategory,
+    posts,
   }
 );
 
-const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(PostsByCategory);
+const connectedComponent = connect(mapStateToProps)(PostsByCategory);
 
 export { connectedComponent as PostsByCategory };
 
 PostsByCategory.propTypes = {
-  postsByCategory: PropTypes.array,
+  posts: PropTypes.array,
 };
 
 PostsByCategory.defaultProps = {
-  postsByCategory: [],
+  posts: [],
 };

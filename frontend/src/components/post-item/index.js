@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -29,7 +30,9 @@ class PostItem extends Component {
 
   render() {
     const { posts, postId } = this.props;
-    const post = posts.find(p => p.id === postId) || {};
+    const post = _.chain(posts)
+      .find(p => p.id === postId)
+      .value() || {};
 
     return (
       <div className="post-item">

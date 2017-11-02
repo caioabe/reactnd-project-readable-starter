@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { getPosts } from '../../modules/posts';
 import { getCategories } from '../../modules/categories';
-import { PostList, CategoryMenu } from '../../components';
+import { PostList } from '../../components';
 
 class Root extends Component {
   componentWillMount() {
@@ -13,24 +13,21 @@ class Root extends Component {
   }
 
   render() {
-    const { posts, categories, comments } = this.props;
+    const { posts } = this.props;
 
     return (
       <div>
         <h2>All Posts</h2>
-        <CategoryMenu categories={categories} />
-        <PostList posts={posts} comments={comments}/>
+        <PostList posts={posts} />
       </div>
     );
   }
 }
 
 const mapDispatchToProps = { getPosts, getCategories };
-const mapStateToProps = ({ posts, categories, comments }) => (
+const mapStateToProps = ({ posts }) => (
   {
     posts,
-    categories,
-    comments,
   }
 );
 
@@ -40,12 +37,8 @@ export { connectedComponent as Root };
 
 Root.propTypes = {
   posts: PropTypes.array,
-  categories: PropTypes.array,
-  comments: PropTypes.object,
 };
 
 Root.defaultProps = {
   posts: [],
-  categories: [],
-  comments: {},
 };

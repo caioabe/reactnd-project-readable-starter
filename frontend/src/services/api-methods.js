@@ -3,7 +3,7 @@ const baseUrl = 'http://localhost:3001';
 const headers = {
   headers: {
     Accept: 'application/json',
-    Authorization: 'teste1',
+    Authorization: 'dasdasdadaad',
     'Content-Type': 'application/json',
   },
 };

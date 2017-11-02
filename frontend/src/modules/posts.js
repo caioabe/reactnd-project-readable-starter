@@ -1,6 +1,5 @@
 import { createAction } from 'redux-actions';
 import ApiService from '../services/api-service';
-import { getComments } from './comments';
 
 const GET_POSTS = 'GET_POSTS';
 const VOTE_POST = 'VOTE_POST';
@@ -14,7 +13,6 @@ export const getPosts = () => async (dispatch) => {
   const posts = await ApiService.getPosts();
 
   dispatch(getPostsAction(posts));
-  dispatch(getComments(posts));
 };
 
 export const voteOnPost = (postId, isUpVote) => async (dispatch) => {

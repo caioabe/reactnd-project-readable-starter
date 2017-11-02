@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -16,23 +17,29 @@ class CommentItem extends Component {
   }
 
   upVoteOnComment() {
-    this.props.voteOnComment(this.props.commentId, true);
+    this.props.voteOnComment(this.props.commentId, this.props.parentId, true);
   }
 
   downVoteOnComment() {
-    this.props.voteOnComment(this.props.commentId, false);
+    this.props.voteOnComment(this.props.commentId, this.props.parentId, false);
   }
 
   deleteComment() {
-    this.props.deleteComment(this.props.commentId);
+    this.props.deleteComment(this.props.commentId, this.props.parentId);
   }
 
   render() {
     const { comments, commentId } = this.props;
-    const comment = comments.find(p => p.id === commentId) || {};
+    const comment = _.chain(comments)
+      .values()
+      .head()
+      .find(c => c.id === commentId)
+      .value() || {};
 
     return (
       <div className="comment-item">
+        <h4><strong>{comment.author}:</strong> {comment.body}</h4>
+        <p>Vote Score: {comment.voteScore}</p>
         <ButtonToolbar>
           <ButtonGroup bsSize="xsmall">
             <Button className="comment-item__upVote" onClick={this.upVoteOnComment}>
@@ -54,7 +61,6 @@ class CommentItem extends Component {
             </LinkContainer>
           </ButtonGroup>
         </ButtonToolbar>
-        <h4><strong>{comment.author}:</strong>{comment.body}</h4>
       </div>
     );
   }
@@ -72,11 +78,11 @@ const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(CommentI
 export { connectedComponent as CommentItem };
 
 CommentItem.propTypes = {
-  comments: PropTypes.array,
+  comments: PropTypes.object,
   commentId: PropTypes.string,
 };
 
 CommentItem.defaultProps = {
-  comments: [],
+  comments: {},
   commentId: '',
 };
