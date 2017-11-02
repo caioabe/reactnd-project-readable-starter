@@ -5,3 +5,5 @@ export * from './Main';
 export * from './Post';
 export * from './Post/PostForm';
 export * from './Post/PostDetail';
+export * from './Comment';
+export * from './Comment/CommentDetail';
