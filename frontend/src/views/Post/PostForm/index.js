@@ -48,7 +48,7 @@ class PostForm extends Component {
           </FormGroup>
         </form>
         <Button bsStyle="success" onClick={this.handleSave}>
-          Save
+          Save editing
         </Button>
       </div>
     );
