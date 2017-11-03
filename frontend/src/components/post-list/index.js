@@ -6,20 +6,20 @@ import { PostItem } from '../';
 
 function renderPostItem(post) {
   return (
-    <Col md={4}>
-      <PostItem postId={post.id} key={`${post.id}-menu`} />
+    <Col md={4} key={`${post.id}-menu`}>
+      <PostItem postId={post.id} />
     </Col>
   );
 }
 
 const PostList = ({ posts, comments }) => (
   <Row>
-  { posts.map((post) => {
-    post.comments = comments[post.id];
+    {posts.map((post) => {
+      post.comments = comments[post.id];
 
-    return renderPostItem(post);
-  }) }
-</Row>
+      return renderPostItem(post);
+    })}
+  </Row>
 );
 
 export { PostList };
