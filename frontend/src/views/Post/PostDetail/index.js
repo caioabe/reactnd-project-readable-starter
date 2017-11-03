@@ -21,7 +21,7 @@ class PostDetail extends Component {
 
     return (
       <div>
-        <PostItem postId={postId} />
+        <PostItem detailed={true} postId={postId} />
         {postComments.map(comment => <CommentItem commentId={comment.id} parentId={postId} key={comment.id} />)}
       </div>
     );

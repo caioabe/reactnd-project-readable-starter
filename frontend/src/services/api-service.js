@@ -9,11 +9,19 @@ const _vote = async (resource, id, isUp) => {
 };
 
 const _create = async (resource, entity) => {
-  const body = { ...entity, id: uuidv1() };
+  const body = {
+    ...entity,
+    id: uuidv1(),
+    timestamp: Date.now(),
+  };
   await Api.post(`${resource}`, body);
 };
 
-const _update = async (resource, id, body) => {
+const _update = async (resource, id, entity) => {
+  const body = {
+    ...entity,
+    timestamp: Date.now(),
+  };
   await Api.put(`${resource}/${id}`, body);
 };
 

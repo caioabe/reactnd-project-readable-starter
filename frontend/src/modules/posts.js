@@ -4,10 +4,14 @@ import ApiService from '../services/api-service';
 const GET_POSTS = 'GET_POSTS';
 const VOTE_POST = 'VOTE_POST';
 const DELETE_POST = 'DELETE_POST';
+const UPDATE_POST = 'UPDATE_POST';
+const CREATE_POST = 'CREATE_POST';
 
 export const getPostsAction = createAction(GET_POSTS);
 export const voteOnPostAction = createAction(VOTE_POST);
 export const deletePostAction = createAction(DELETE_POST);
+export const updatePostAction = createAction(UPDATE_POST);
+export const createPostAction = createAction(CREATE_POST);
 
 export const getPosts = () => async (dispatch) => {
   const posts = await ApiService.getPosts();
@@ -25,6 +29,18 @@ export const deletePost = postId => async (dispatch) => {
   await ApiService.deletePost(postId);
 
   dispatch(deletePostAction(postId));
+};
+
+export const updatePost = post => async (dispatch) => {
+  await ApiService.updatePost(post);
+
+  dispatch(updatePostAction());
+};
+
+export const createPost = post => async (dispatch) => {
+  await ApiService.createPost(post);
+
+  dispatch(createPostAction(post));
 };
 
 const INITIAL_STATE = [];
@@ -47,6 +63,12 @@ const reducer = (state = INITIAL_STATE, action = {}) => {
     }
     case DELETE_POST: {
       return [...state.filter(p => p.id !== action.payload)];
+    }
+    case UPDATE_POST: {
+      return [...state];
+    }
+    case CREATE_POST: {
+      return [...state];
     }
     default:
       return state;

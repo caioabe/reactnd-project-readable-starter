@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from 'react-bootstrap';
 
 import { PostDetail, PostForm } from '../';
+import { getPosts } from '../../modules/posts';
 
 class Post extends Component {
+  componentWillMount() {
+    this.props.getPosts();
+  }
+
   render() {
     const { match } = this.props;
     const { url } = match;
@@ -27,4 +34,22 @@ class Post extends Component {
   }
 }
 
-export { Post };
+const mapDispatchToProps = { getPosts };
+const mapStateToProps = ({ posts }) => (
+  {
+    posts,
+  }
+);
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Post);
+
+export { connectedComponent as Post };
+
+Post.propTypes = {
+  posts: PropTypes.array,
+};
+
+Post.defaultProps = {
+  posts: [],
+};
+
