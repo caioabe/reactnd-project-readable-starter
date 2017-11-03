@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { PostDetail } from '../';
+import { PostDetail, PostForm } from '../';
 
 class Post extends Component {
   render() {
@@ -12,7 +12,8 @@ class Post extends Component {
       <div>
         <h2>Post</h2>
         <Switch>
-          <Route path={`${url}/:postId`} component={PostDetail}/>
+          <Route exact path={`${url}/:postId`} component={PostDetail}/>
+          <Route path={`${url}/:postId/edit`} component={PostForm}/>
         </Switch>
       </div>
     );
