@@ -23,7 +23,7 @@ class PostForm extends Component {
   componentWillMount() {
     this.setState({
       postId: this.props.match.params.postId,
-      isNew: this.props.match.path === '/new-post',
+      isNew: this.props.match.path.indexOf('/new-post') >= 0,
     });
   }
 
