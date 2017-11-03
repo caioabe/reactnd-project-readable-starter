@@ -27,7 +27,7 @@ class PostForm extends Component {
   render() {
     const { posts } = this.props;
     const { postId } = this.props.match.params;
-    const post = posts.find(p => p.id === postId) || [];
+    const post = posts.find(p => p.id === postId) || {};
 
     return (
       <div>
@@ -55,14 +55,13 @@ class PostForm extends Component {
   }
 }
 
-const mapDispatchToProps = { };
 const mapStateToProps = ({ posts }) => (
   {
     posts,
   }
 );
 
-const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(PostForm);
+const connectedComponent = connect(mapStateToProps)(PostForm);
 
 export { connectedComponent as PostForm };
 
