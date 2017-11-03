@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { CommentDetail } from '../';
+import { CommentDetail, CommentForm } from '../';
 
 class Comment extends Component {
   render() {
@@ -12,7 +12,8 @@ class Comment extends Component {
       <div>
         <h2>Comment</h2>
         <Switch>
-          <Route path={`${url}/:commentId`} component={CommentDetail}/>
+          <Route exact path={`${url}/:commentId`} component={CommentDetail}/>
+          <Route path={`${url}/:commentId/edit`} component={CommentForm}/>
         </Switch>
       </div>
     );
