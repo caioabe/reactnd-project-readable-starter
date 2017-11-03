@@ -62,6 +62,15 @@ class PostItem extends Component {
         <h4>{post.title}</h4>
         <p>Autor: {post.author}</p>
         <p>Vote Score: {post.voteScore}</p>
+        {this.props.detailed && (
+          <div>
+            <p>{post.body}</p>
+            <LinkContainer to={`/new-comment/${post.id}`}>
+              <Button className="post-item__new-comment">
+                Add Comment
+              </Button>
+            </LinkContainer>
+          </div>)}
       </div>
     );
   }
