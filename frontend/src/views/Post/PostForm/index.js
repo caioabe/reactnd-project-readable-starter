@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
@@ -6,9 +7,7 @@ class PostForm extends Component {
   constructor(props) {
     super(props);
 
-    this.renderButton = this.renderButton.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
 
     this.state = {
       postId: '',
@@ -25,57 +24,47 @@ class PostForm extends Component {
     this.props.savePost(this.state.postId);
   }
 
-  handleCreate() {
-    this.props.createPost();
-  }
-
-  renderButton() {
-    let button;
-
-    if (this.props.match.params.action === 'edit') {
-      button = (
-        <Button bsStyle="success" onClick={this.handleSave}>
-          Save
-        </Button>
-      );
-    } else {
-      button = (
-        <Button bsStyle="primary" onClick={this.handleCreate}>
-          Create
-        </Button>
-      );
-    }
-
-    return button;
-  }
   render() {
-    const { post } = this.props;
+    const { posts } = this.props;
+    const { postId } = this.props.match.params;
+    const post = posts.find(p => p.id === postId) || [];
 
     return (
       <div>
         <form>
           <FormGroup>
             <ControlLabel>Title:</ControlLabel>
-            <FormControl type="text" value={post.title} placeholder="Eloquent Ruby"/>
+            <FormControl type="text" defaultValue={post.title} placeholder="Eloquent Ruby"/>
             <ControlLabel>Author:</ControlLabel>
-            <FormControl type="text" value={post.author} placeholder="Eric Evans"/>
+            <FormControl type="text" defaultValue={post.author} placeholder="Eric Evans"/>
             <ControlLabel>Category:</ControlLabel>
-            <FormControl componentClass="select" placeholder="select">
+            <FormControl componentClass="select" defaultValue={post.category} placeholder="select">
               <option value="react">React</option>
               <option value="redux">Redux</option>
               <option value="udacity">Udacity</option>
             </FormControl>
             <ControlLabel>Body:</ControlLabel>
-            <FormControl componentClass="textarea" placeholder="Describe..." />
+            <FormControl componentClass="textarea" placeholder="Describe..." defaultValue={post.body}/>
           </FormGroup>
         </form>
-        { this.renderButton() }
+        <Button bsStyle="success" onClick={this.handleSave}>
+          Save
+        </Button>
       </div>
     );
   }
 }
 
-export { PostForm };
+const mapDispatchToProps = { };
+const mapStateToProps = ({ posts }) => (
+  {
+    posts,
+  }
+);
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(PostForm);
+
+export { connectedComponent as PostForm };
 
 PostForm.propTypes = {
   post: PropTypes.object,
