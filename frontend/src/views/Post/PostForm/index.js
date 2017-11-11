@@ -15,15 +15,28 @@ class PostForm extends Component {
     this.handleInput = this.handleInput.bind(this);
 
     this.state = {
-      postId: '',
       isNew: false,
+      postId: '',
+      title: '',
+      body: '',
+      author: '',
+      category: '',
     };
   }
 
   componentWillMount() {
+    const { match, posts } = this.props;
+    const isNew = match.path.indexOf('/new-post') >= 0;
+    const { postId } = match.params;
+    const post = posts.filter(p => p.id === postId)[0] || {};
+
     this.setState({
-      postId: this.props.match.params.postId,
-      isNew: this.props.match.path.indexOf('/new-post') >= 0,
+      isNew,
+      postId,
+      title: post.title,
+      body: post.body,
+      author: post.author,
+      category: post.category,
     });
   }
 
@@ -32,8 +45,6 @@ class PostForm extends Component {
       id: this.state.postId,
       title: this.state.title,
       body: this.state.body,
-      author: this.state.author,
-      category: this.state.category,
     });
     this.props.history.push('/');
   }
@@ -42,6 +53,8 @@ class PostForm extends Component {
     this.props.createPost({
       title: this.state.title,
       body: this.state.body,
+      author: this.state.author,
+      category: this.state.category,
     });
     this.props.history.push('/');
   }
@@ -90,7 +103,7 @@ class PostForm extends Component {
 
             <ControlLabel>Author:</ControlLabel>
             <FormControl
-              disabled={isNew}
+              readOnly={!isNew}
               type="text"
               defaultValue={post.author}
               placeholder="Eric Evans"
@@ -98,7 +111,7 @@ class PostForm extends Component {
 
             <ControlLabel>Category:</ControlLabel>
             <FormControl
-              disabled={isNew}
+              readOnly={!isNew}
               componentClass="select"
               defaultValue={post.category}
               placeholder="select"

@@ -34,7 +34,7 @@ export const deletePost = postId => async (dispatch) => {
 export const updatePost = post => async (dispatch) => {
   await ApiService.updatePost(post);
 
-  dispatch(updatePostAction());
+  dispatch(updatePostAction(post));
 };
 
 export const createPost = post => async (dispatch) => {
@@ -65,7 +65,9 @@ const reducer = (state = INITIAL_STATE, action = {}) => {
       return [...state.filter(p => p.id !== action.payload)];
     }
     case UPDATE_POST: {
-      return [...state];
+      const post = action.payload;
+
+      return [...state.filter(p => p.id !== post.id), { ...post }];
     }
     case CREATE_POST: {
       return [...state];

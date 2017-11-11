@@ -4,8 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { CommentItem } from '../../../components';
+import { findComment } from '../../../modules/comments';
 
 class CommentDetail extends Component {
+  componentWillMount() {
+    this.props.findComment(this.props.match.params.commentId);
+  }
+
   render() {
     const { comments } = this.props;
     const { commentId } = this.props.match.params;
@@ -21,13 +26,14 @@ class CommentDetail extends Component {
   }
 }
 
+const mapDispatchToProps = { findComment };
 const mapStateToProps = ({ comments }) => (
   {
     comments,
   }
 );
 
-const connectedComponent = connect(mapStateToProps)(CommentDetail);
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(CommentDetail);
 
 export { connectedComponent as CommentDetail };
 

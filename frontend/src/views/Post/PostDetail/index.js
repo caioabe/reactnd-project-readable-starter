@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -15,22 +16,31 @@ class PostDetail extends Component {
   }
 
   render() {
-    const { comments } = this.props;
+    let render;
+    const { comments, posts } = this.props;
     const { postId } = this.props.match.params;
     const postComments = comments[postId] || [];
+    const post = posts.filter(p => p.id === postId)[0] || [];
 
-    return (
-      <div>
-        <PostItem detailed={true} postId={postId} />
-        {postComments.map(comment => <CommentItem commentId={comment.id} parentId={postId} key={comment.id} />)}
-      </div>
-    );
+    if (!_.isEmpty(post)) {
+      render = (
+        <div>
+          <PostItem detailed={true} postId={postId} />
+          {postComments.map(comment => <CommentItem commentId={comment.id} parentId={postId} key={comment.id} />)}
+        </div>
+      );
+    } else {
+      render = 'Post não encontrado';
+    }
+
+    return render;
   }
 }
 
 const mapDispatchToProps = { getPosts, getCategories, findCommentsByPost };
-const mapStateToProps = ({ comments }) => (
+const mapStateToProps = ({ posts, comments }) => (
   {
+    posts,
     comments,
   }
 );
