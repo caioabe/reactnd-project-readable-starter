@@ -30,7 +30,7 @@ class PostDetail extends Component {
         </div>
       );
     } else {
-      render = 'Post não encontrado';
+      render = 'Post not found';
     }
 
     return render;
