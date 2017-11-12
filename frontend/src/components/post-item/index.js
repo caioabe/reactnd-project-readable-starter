@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import { voteOnPost, deletePost } from '../../modules/posts';
+import { findCommentsByPost } from '../../modules/comments';
 
 class PostItem extends Component {
   constructor(props) {
@@ -14,6 +15,10 @@ class PostItem extends Component {
     this.upVoteOnPost = this.upVoteOnPost.bind(this);
     this.downVoteOnPost = this.downVoteOnPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.findCommentsByPost(this.props.postId);
   }
 
   upVoteOnPost() {
@@ -29,10 +34,12 @@ class PostItem extends Component {
   }
 
   render() {
-    const { posts, postId } = this.props;
+    const { posts, postId, comments } = this.props;
     const post = _.chain(posts)
       .find(p => p.id === postId)
       .value() || {};
+    const postComments = comments[postId] || [];
+    const postCommentsCount = postComments.length;
 
     return (
       <div className="post-item">
@@ -63,6 +70,7 @@ class PostItem extends Component {
         <p>Autor: {post.author}</p>
         <p>Vote Score: {post.voteScore}</p>
         <p>Category: {post.category}</p>
+        <p>Comments: {postCommentsCount}</p>
         {this.props.detailed && (
           <div>
             <p>{post.body}</p>
@@ -77,9 +85,10 @@ class PostItem extends Component {
   }
 }
 
-const mapDispatchToProps = { voteOnPost, deletePost };
-const mapStateToProps = ({ posts }) => (
+const mapDispatchToProps = { voteOnPost, deletePost, findCommentsByPost };
+const mapStateToProps = ({ posts, comments }) => (
   {
+    comments,
     posts,
   }
 );
@@ -90,10 +99,12 @@ export { connectedComponent as PostItem };
 
 PostItem.propTypes = {
   posts: PropTypes.array,
+  comments: PropTypes.object,
   postId: PropTypes.string,
 };
 
 PostItem.defaultProps = {
   posts: [],
+  comments: {},
   postId: '',
 };
