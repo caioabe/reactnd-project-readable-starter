@@ -8,7 +8,7 @@ import { PostList, CategoryMenu } from '../../../components';
 import { getPosts } from '../../../modules/posts';
 
 class PostsByCategory extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if (_.isEmpty(this.props.posts)) {
       this.props.getPosts();
     }
