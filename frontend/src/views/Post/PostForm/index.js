@@ -116,6 +116,7 @@ class PostForm extends Component {
               defaultValue={post.category}
               placeholder="select"
               onChange={this.handleInput('category')}>
+              <option>---</option>
               <option value="react">React</option>
               <option value="redux">Redux</option>
               <option value="udacity">Udacity</option>

@@ -62,6 +62,7 @@ class PostItem extends Component {
         <h4>{post.title}</h4>
         <p>Autor: {post.author}</p>
         <p>Vote Score: {post.voteScore}</p>
+        <p>Category: {post.category}</p>
         {this.props.detailed && (
           <div>
             <p>{post.body}</p>

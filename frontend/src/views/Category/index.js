@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'react-bootstrap';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -20,8 +21,13 @@ class Category extends Component {
 
     return (
       <div>
-        <h2>Category</h2>
-        <CategoryMenu categories={categories} />
+        <Row>
+          <Col md={12}>
+            <h2>Category</h2>
+            <CategoryMenu categories={categories} />
+            <hr />
+          </Col>
+        </Row>
         <Switch>
           <Route exact path='/category' render={() => (
             <h3>Please select a topic.</h3>
