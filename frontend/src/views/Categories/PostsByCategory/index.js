@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import { PostList } from '../../../components';
+import { PostList, CategoryMenu } from '../../../components';
 import { getPosts } from '../../../modules/posts';
 
 class PostsByCategory extends Component {
@@ -15,12 +15,19 @@ class PostsByCategory extends Component {
   }
 
   render() {
-    const { posts } = this.props;
+    const { posts, categories } = this.props;
     const { categoryId } = this.props.match.params;
     const postsByCategory = posts.filter(p => p.category === categoryId);
 
     return (
       <Grid>
+        <Row>
+          <Col md={12}>
+            <h2>Posts by category</h2>
+            <CategoryMenu categories={categories} />
+            <hr />
+          </Col>
+        </Row>
         <PostList posts={postsByCategory} />
       </Grid>
     );
@@ -28,9 +35,10 @@ class PostsByCategory extends Component {
 }
 
 const mapDispatchToprops = { getPosts };
-const mapStateToProps = ({ posts }) => (
+const mapStateToProps = ({ posts, categories }) => (
   {
     posts,
+    categories,
   }
 );
 
@@ -40,8 +48,10 @@ export { connectedComponent as PostsByCategory };
 
 PostsByCategory.propTypes = {
   posts: PropTypes.array,
+  categories: PropTypes.array,
 };
 
 PostsByCategory.defaultProps = {
   posts: [],
+  categories: [],
 };

@@ -4,7 +4,7 @@ import { NavItem } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const CategoryLink = ({ category }) => (
-  <LinkContainer to={`/categories/${category.path}`}>
+  <LinkContainer to={`/${category.path}`}>
     <NavItem>{category.name}</NavItem>
   </LinkContainer>
 );
