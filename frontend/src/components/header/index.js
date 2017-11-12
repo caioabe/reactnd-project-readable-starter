@@ -15,7 +15,7 @@ const Header = () => (
       <LinkContainer exact to="/">
         <NavItem>All Posts</NavItem>
       </LinkContainer>
-      <LinkContainer to="/category">
+      <LinkContainer to="/categories">
         <NavItem>Categories</NavItem>
       </LinkContainer>
       <LinkContainer exact to={'/new-post'}>

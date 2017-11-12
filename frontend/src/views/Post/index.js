@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from 'react-bootstrap';
 
-import { PostDetail, PostForm } from '../';
+import { PostForm } from '../';
 import { getPosts } from '../../modules/posts';
 
 class Post extends Component {
@@ -26,7 +26,6 @@ class Post extends Component {
               <Button bsStyle="primary">Create New Post</Button>
             </LinkContainer>
           )}/>
-          <Route exact path={`${url}/:postId`} component={PostDetail}/>
           <Route path={`${url}/:postId/edit`} component={PostForm}/>
         </Switch>
       </div>

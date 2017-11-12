@@ -59,7 +59,7 @@ class PostItem extends Component {
                 edit
               </Button>
             </LinkContainer>
-            <LinkContainer to={`/post/${post.id}`}>
+            <LinkContainer to={`/category/${post.id}`}>
               <Button className="post-item__view">
                 view
               </Button>
