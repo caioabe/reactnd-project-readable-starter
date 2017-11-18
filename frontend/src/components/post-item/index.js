@@ -54,12 +54,12 @@ class PostItem extends Component {
             <Button className="post-item__delete" onClick={this.deletePost}>
               delete
             </Button>
-            <LinkContainer to={`/post/${post.id}/edit`}>
+            <LinkContainer to={`/edit-post/${post.id}/`}>
               <Button className="post-item__edit">
                 edit
               </Button>
             </LinkContainer>
-            <LinkContainer to={`/category/${post.id}`}>
+            <LinkContainer to={`/${post.category}/${post.id}`}>
               <Button className="post-item__view">
                 view
               </Button>

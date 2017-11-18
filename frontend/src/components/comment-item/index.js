@@ -51,7 +51,7 @@ class CommentItem extends Component {
             <Button className="comment-item__delete" onClick={this.deleteComment}>
               delete
             </Button>
-            <LinkContainer to={`/comment/${comment.id}/edit`}>
+            <LinkContainer to={`/edit-comment/${comment.id}`}>
               <Button className="comment-item__edit">
                 edit
               </Button>

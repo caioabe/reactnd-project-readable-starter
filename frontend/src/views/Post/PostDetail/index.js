@@ -25,6 +25,7 @@ class PostDetail extends Component {
     if (!_.isEmpty(post)) {
       render = (
         <div>
+          <h2>Post Detail</h2>
           <PostItem detailed={true} postId={postId} />
           {postComments.map(comment => <CommentItem commentId={comment.id} parentId={postId} key={comment.id} />)}
         </div>

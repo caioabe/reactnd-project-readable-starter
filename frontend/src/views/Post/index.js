@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from 'react-bootstrap';
 
-import { PostForm } from '../';
 import { getPosts } from '../../modules/posts';
 
 class Post extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getPosts();
   }
 
@@ -20,14 +18,9 @@ class Post extends Component {
     return (
       <div>
         <h2>Post</h2>
-        <Switch>
-          <Route exact path={`${url}`} render={() => (
-            <LinkContainer exact to={'/new-post'}>
-              <Button bsStyle="primary">Create New Post</Button>
-            </LinkContainer>
-          )}/>
-          <Route path={`${url}/:postId/edit`} component={PostForm}/>
-        </Switch>
+          <LinkContainer exact to={`/${url}`}>
+            <Button bsStyle="primary">Create New Post</Button>
+          </LinkContainer>
       </div>
     );
   }
